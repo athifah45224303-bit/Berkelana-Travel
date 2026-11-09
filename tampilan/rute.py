@@ -104,7 +104,7 @@ def render() -> None:
                 min_value=1,
                 max_value=100_000_000,
                 value=75_000,
-                step=5_000,
+                step=1,
                 format="%d",
             )
             status = st.checkbox("Rute langsung aktif dan dapat dipesan", value=True)
@@ -321,7 +321,7 @@ def render() -> None:
                     min_value=1,
                     max_value=100_000_000,
                     value=int(pilih["harga_tiket"]),
-                    step=5_000,
+                    step=1,
                     format="%d",
                     key=f"rute_harga_{pilih['id_rute']}",
                 )
