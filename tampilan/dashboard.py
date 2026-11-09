@@ -14,7 +14,7 @@ from utils import tanggal_indo
 
 def render() -> None:
     ui.hero(
-        "Operasional travel dalam satu layar",
+        "Selamat datang di Berkelana Travel",
         "Pantau pelanggan, rute, pemesanan, keterisian kursi, dan pendapatan "
         "Berkelana Travel. Semua data tersimpan lokal di SQLite.",
         tanggal_indo(date.today()),
