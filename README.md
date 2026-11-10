@@ -21,6 +21,7 @@ Aplikasi dibuat **tanpa login** dan sepenuhnya berjalan lokal di komputer
 | **Pemesanan Tiket** | Tambah pelanggan cepat, pilih pelanggan/rute/tanggal/kode jadwal, denah kursi real-time, pilih beberapa kursi, hitung total otomatis, simpan transaksi, dan unduh nota. |
 | **Riwayat Pemesanan** | Pencarian multi-kriteria, filter rute dan rentang tanggal, unduh CSV, detail transaksi, nota, dan pembatalan dengan konfirmasi. |
 | **Log Aktivitas** | Jejak audit otomatis untuk penambahan, perubahan, penghapusan, dan pembatalan data. Bisa difilter dan diunduh CSV. |
+| **Kreator** | Identitas tim penyusun: institusi, jurusan, program studi, kelas, dan empat anggota kelompok. Bisa diunduh sebagai teks. |
 
 ### Yang sengaja tidak dibuat (sesuai ruang lingkup)
 
@@ -148,7 +149,8 @@ berkelana_travel/
 │   ├── pelanggan.py        # Pengelolaan pelanggan
 │   ├── rute.py             # Pengelolaan rute & tarif
 │   ├── kursi.py            # Pengelolaan kursi
-│   └── log.py              # Log aktivitas
+│   ├── log.py              # Log aktivitas
+│   └── kreator.py          # Identitas tim kreator
 ├── tests/
 │   └── test_database.py    # 34 pengujian aturan bisnis
 ├── .streamlit/

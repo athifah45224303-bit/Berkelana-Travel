@@ -22,7 +22,7 @@ st.set_page_config(
 
 import components as ui
 import database as db
-from tampilan import dashboard, kursi, log, pelanggan, pemesanan, riwayat, rute
+from tampilan import dashboard, kreator, kursi, log, pelanggan, pemesanan, riwayat, rute
 from utils import rupiah, tanggal_indo
 
 
@@ -44,6 +44,7 @@ HALAMAN = {
     "Pemesanan Tiket": pemesanan.render,
     "Riwayat Pemesanan": riwayat.render,
     "Log Aktivitas": log.render,
+    "Kreator": kreator.render,
 }
 
 IKON_NAVIGASI = {
@@ -54,6 +55,7 @@ IKON_NAVIGASI = {
     "Pemesanan Tiket": "🎫  Pemesanan Tiket",
     "Riwayat Pemesanan": "🕘  Riwayat Pemesanan",
     "Log Aktivitas": "🧾  Log Aktivitas",
+    "Kreator": "🎓  Kreator",
 }
 
 with st.sidebar:

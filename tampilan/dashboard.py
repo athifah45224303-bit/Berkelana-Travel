@@ -95,13 +95,13 @@ def render() -> None:
         else:
             df_populer = pd.DataFrame(populer).set_index("rute")[["jumlah_tiket"]]
             df_populer.columns = ["Tiket terjual"]
-            st.bar_chart(df_populer, color="#0f766e", height=212)
+            st.bar_chart(df_populer, color="#1e68af", height=212)
             for item in populer[:3]:
                 st.markdown(
                     f"<div style='display:flex;justify-content:space-between;gap:1rem;"
                     f"font-size:.8rem;padding:.24rem 0;border-bottom:1px solid #eef2f4'>"
                     f"<span>{ui.esc(item['rute'])}</span>"
-                    f"<b style='color:#0f766e'>{item['jumlah_tiket']} tiket</b></div>",
+                    f"<b style='color:#1e68af'>{item['jumlah_tiket']} tiket</b></div>",
                     unsafe_allow_html=True,
                 )
 
@@ -156,7 +156,7 @@ def render() -> None:
             )
             df_pendapatan = df_pendapatan.set_index("tanggal")[["pendapatan"]]
             df_pendapatan.columns = ["Pendapatan (Rp)"]
-            st.area_chart(df_pendapatan, color="#0d9488", height=235)
+            st.area_chart(df_pendapatan, color="#5c9fd6", height=235)
 
     st.markdown(
         """

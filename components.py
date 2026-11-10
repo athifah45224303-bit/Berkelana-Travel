@@ -25,19 +25,19 @@ from utils import (
 CSS = """
 <style>
 :root {
-    --bk-brand: #0f766e;
-    --bk-brand-dark: #0b4f4a;
-    --bk-brand-soft: #ccfbf1;
-    --bk-accent: #f59e0b;
+    --bk-brand: #1e68af;
+    --bk-brand-dark: #07366c;
+    --bk-brand-soft: #dceafa;
+    --bk-accent: #5c9fd6;
     --bk-ink: #0f172a;
     --bk-muted: #64748b;
-    --bk-line: #dbe4e8;
+    --bk-line: #d7e3f0;
     --bk-surface: #ffffff;
 }
 .stApp {
     background:
-        radial-gradient(circle at 88% -8%, rgba(15, 118, 110, 0.10), transparent 32rem),
-        linear-gradient(180deg, #f7fafb 0%, #f2f6f7 100%);
+        radial-gradient(circle at 88% -8%, rgba(30, 104, 175, 0.10), transparent 32rem),
+        linear-gradient(180deg, #f7fafc 0%, #f1f5f9 100%);
 }
 .block-container {
     padding-top: 2.1rem;
@@ -52,7 +52,7 @@ p, label, .stMarkdown {
     color: #334155;
 }
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #093a38 0%, #0c4f4a 52%, #0f615b 100%);
+    background: linear-gradient(180deg, #052747 0%, #07366c 52%, #0a4a8f 100%);
     border-right: 1px solid rgba(255,255,255,0.08);
 }
 [data-testid="stSidebar"] > div:first-child {
@@ -65,7 +65,7 @@ p, label, .stMarkdown {
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
-    color: #ecfdf5 !important;
+    color: #eaf2fb !important;
 }
 [data-testid="stSidebar"] div[role="radiogroup"] {
     gap: 0.18rem;
@@ -119,8 +119,8 @@ p, label, .stMarkdown {
     border-radius: 14px;
     display: grid;
     place-items: center;
-    background: linear-gradient(145deg, #fbbf24, #f59e0b);
-    color: #26210a;
+    background: linear-gradient(145deg, #5c9fd6, #1e68af);
+    color: #ffffff;
     font-size: 1.45rem;
     box-shadow: 0 10px 22px rgba(0,0,0,0.18);
     flex: 0 0 auto;
@@ -147,7 +147,7 @@ p, label, .stMarkdown {
     font-size: 0.76rem;
     line-height: 1.55;
 }
-.bk-sidebar-note b { color: #fef3c7; }
+.bk-sidebar-note b { color: #cfe3f7; }
 .bk-page-head {
     display: flex;
     align-items: flex-start;
@@ -158,8 +158,8 @@ p, label, .stMarkdown {
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    background: #e6fffa;
-    border: 1px solid #b2f5ea;
+    background: #e8f1fb;
+    border: 1px solid #bcd7f0;
     display: grid;
     place-items: center;
     font-size: 1.35rem;
@@ -183,20 +183,20 @@ p, label, .stMarkdown {
     justify-content: space-between;
     gap: 1rem;
     background:
-        radial-gradient(circle at 92% 20%, rgba(251, 191, 36, 0.30), transparent 14rem),
-        linear-gradient(120deg, #0b4f4a 0%, #0f766e 58%, #0d9488 100%);
+        radial-gradient(circle at 92% 20%, rgba(92, 159, 214, 0.35), transparent 14rem),
+        linear-gradient(120deg, #07366c 0%, #1e68af 58%, #3d84c6 100%);
     border-radius: 20px;
     padding: 1.6rem 1.8rem;
-    color: #f0fdfa;
+    color: #f0f7ff;
     margin-bottom: 1.25rem;
-    box-shadow: 0 18px 44px rgba(11, 79, 74, 0.18);
+    box-shadow: 0 18px 44px rgba(7, 54, 108, 0.20);
 }
 .bk-hero .bk-eyebrow {
     display: inline-block;
     font-size: 0.68rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #fde68a;
+    color: #bcd7f0;
     font-weight: 800;
     margin-bottom: 0.45rem;
 }
@@ -207,7 +207,7 @@ p, label, .stMarkdown {
     line-height: 1.13;
 }
 .bk-hero p {
-    color: #ccfbf1;
+    color: #dceafa;
     margin: 0;
     max-width: 640px;
     font-size: 0.94rem;
@@ -221,7 +221,7 @@ p, label, .stMarkdown {
     padding: 0.45rem 0.85rem;
     font-size: 0.76rem;
     font-weight: 700;
-    color: #fefce8;
+    color: #eaf2fb;
     white-space: nowrap;
 }
 .bk-metric {
@@ -243,7 +243,7 @@ p, label, .stMarkdown {
     width: 92px;
     height: 92px;
     border-radius: 50%;
-    background: rgba(15, 118, 110, 0.055);
+    background: rgba(30, 104, 175, 0.055);
 }
 .bk-metric-top {
     display: flex;
@@ -288,12 +288,12 @@ p, label, .stMarkdown {
     }
 }
 .bk-metric.accent {
-    background: linear-gradient(145deg, #0f766e, #0d9488);
+    background: linear-gradient(145deg, #1e68af, #3d84c6);
     border-color: transparent;
 }
 .bk-metric.accent .bk-metric-label,
 .bk-metric.accent .bk-metric-sub {
-    color: #ccfbf1;
+    color: #dceafa;
 }
 .bk-metric.accent .bk-metric-value { color: #ffffff; }
 .bk-metric.accent::after { background: rgba(255,255,255,0.09); }
@@ -340,12 +340,12 @@ button[kind="primary"] {
 .stButton > button:hover,
 .stDownloadButton > button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(15, 118, 110, 0.14);
+    box-shadow: 0 8px 18px rgba(30, 104, 175, 0.14);
 }
 .stButton > button[kind="primary"],
 .stDownloadButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #0f766e, #0d9488);
-    border-color: #0f766e;
+    background: linear-gradient(135deg, #1e68af, #3d84c6);
+    border-color: #1e68af;
 }
 .stButton > button:disabled {
     opacity: 0.55;
@@ -384,7 +384,7 @@ div[data-testid="stExpander"] details {
 .bk-badge.grey { background: #e8edf1; color: #475569; }
 .bk-badge.amber { background: #fef3c7; color: #92400e; }
 .bk-badge.red { background: #fee2e2; color: #991b1b; }
-.bk-badge.teal { background: #ccfbf1; color: #115e59; }
+.bk-badge.teal { background: #dceafa; color: #07366c; }
 .bk-trip {
     background: #ffffff;
     border: 1px solid var(--bk-line);
@@ -402,7 +402,7 @@ div[data-testid="stExpander"] details {
 .bk-trip-code {
     font-weight: 800;
     letter-spacing: 0.02em;
-    color: #0f766e;
+    color: #1e68af;
     font-size: 0.82rem;
 }
 .bk-trip-route {
@@ -497,7 +497,7 @@ div[data-testid="stExpander"] details {
     vertical-align: -1px;
 }
 .bk-profile {
-    background: linear-gradient(155deg, #ffffff 0%, #f4fbfa 100%);
+    background: linear-gradient(155deg, #ffffff 0%, #f3f8fd 100%);
     border: 1px solid var(--bk-line);
     border-radius: 18px;
     padding: 1.15rem 1.2rem;
@@ -537,8 +537,8 @@ div[data-testid="stExpander"] details {
     margin-top: 0.15rem;
 }
 .bk-price-box {
-    background: linear-gradient(150deg, #f0fdfa, #ecfdf5);
-    border: 1px solid #b2f5ea;
+    background: linear-gradient(150deg, #f0f7ff, #eaf2fb);
+    border: 1px solid #bcd7f0;
     border-radius: 16px;
     padding: 1rem 1.15rem;
 }
@@ -551,14 +551,14 @@ div[data-testid="stExpander"] details {
     padding: 0.22rem 0;
 }
 .bk-price-box .row.total {
-    border-top: 1px dashed #99f6e4;
+    border-top: 1px dashed #a8cbe8;
     margin-top: 0.45rem;
     padding-top: 0.6rem;
     color: #0f172a;
     font-weight: 800;
     font-size: 1rem;
 }
-.bk-price-box .row.total b { color: #0f766e; font-size: 1.25rem; }
+.bk-price-box .row.total b { color: #1e68af; font-size: 1.25rem; }
 .bk-empty {
     text-align: center;
     padding: 2.2rem 1rem;
@@ -579,7 +579,7 @@ div[data-testid="stExpander"] details {
     background: #e2e8f0;
     display: inline-block;
 }
-.bk-seat-usage i.on { background: #0f766e; }
+.bk-seat-usage i.on { background: #1e68af; }
 .bk-note {
     border-left: 4px solid #f59e0b;
     background: #fffbeb;
@@ -594,7 +594,7 @@ div[data-testid="stExpander"] details {
     align-items: center;
     gap: 0.6rem;
     font-weight: 800;
-    color: #0f766e;
+    color: #1e68af;
     margin-bottom: 0.4rem;
 }
 div[data-testid="stCode"] pre {
@@ -842,7 +842,7 @@ def kartu_jadwal(data: Mapping[str, Any], kapasitas: int) -> None:
                 <span>🎟️ {esc(data.get('jumlah_pemesanan', 0))} pemesanan</span>
             </div>
             <div style="height:6px;background:#e8eef0;border-radius:99px;margin-top:.55rem;overflow:hidden">
-                <div style="height:100%;width:{persen}%;background:{'#f59e0b' if persen >= 75 else '#0f766e'};border-radius:99px"></div>
+                <div style="height:100%;width:{persen}%;background:{'#f59e0b' if persen >= 75 else '#1e68af'};border-radius:99px"></div>
             </div>
         </div>
         """,
