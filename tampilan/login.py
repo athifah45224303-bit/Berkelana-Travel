@@ -13,42 +13,63 @@ import auth
 import components as ui
 import database as db
 
+FITUR = (
+    ("Kelola pelanggan, rute, tarif, dan kursi", "data master perjalanan"),
+    ("Pemesanan tiket dengan denah kursi real-time", "tanpa kursi bentrok"),
+    ("Nota, riwayat transaksi, dan log aktivitas", "jejak audit otomatis"),
+)
 
-def _kartu(judul: str, subjudul: str) -> None:
+
+def _panel_brand() -> None:
     logo = ui.logo_data_uri()
-    if logo:
-        st.markdown(
-            f'<div class="bk-login-logo"><img src="{logo}" alt="Logo Berkelana Travel"></div>',
-            unsafe_allow_html=True,
-        )
+    gambar = (
+        f'<img src="{logo}" alt="Logo Berkelana Travel">'
+        if logo
+        else '<div class="bk-brand-icon">🧭</div>'
+    )
+    butir = "".join(
+        f'<li><span class="tick">✓</span><span><b>{judul}</b> — {ketika}</span></li>'
+        for judul, ketika in FITUR
+    )
     st.markdown(
-        f'<div class="bk-login-title"><h2>{ui.esc(judul)}</h2>'
-        f"<p>{ui.esc(subjudul)}</p></div>",
+        f"""
+        <div class="bk-auth-brand">
+            {gambar}
+            <div class="name">Berkelana Travel</div>
+            <div class="tag">Sistem Administrasi Perjalanan</div>
+            <ul class="list">{butir}</ul>
+            <div class="foot">Python · Streamlit · SQLite — data tersimpan lokal</div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
 
-def _form_daftar() -> None:
+def _kartu_daftar() -> None:
+    st.markdown(
+        '<h3 class="bk-auth-title">Daftar akun baru</h3>'
+        '<p class="bk-auth-sub">Buat akun petugas, hanya butuh satu menit.</p>',
+        unsafe_allow_html=True,
+    )
     with st.form("form_daftar", clear_on_submit=True):
         username = st.text_input(
-            "Username *",
+            "Username",
             placeholder="Contoh: athifah",
             key="daftar_username",
             help="3-30 karakter: huruf, angka, titik, garis bawah, atau tanda hubung.",
         )
         password = st.text_input(
-            "Password *",
+            "Password",
             type="password",
             placeholder="Minimal 8 karakter",
             key="daftar_password",
         )
         konfirmasi = st.text_input(
-            "Ulangi password *",
+            "Ulangi password",
             type="password",
             key="daftar_konfirmasi",
         )
-        st.caption("* Wajib diisi. Password di-hash dengan bcrypt (cost factor 12).")
-        daftar = st.form_submit_button("Daftar sekarang", type="primary")
+        daftar = st.form_submit_button("Daftar sekarang", type="primary", width="stretch")
 
     if not daftar:
         return
@@ -70,20 +91,25 @@ def _form_daftar() -> None:
     st.rerun()
 
 
-def _form_login() -> None:
+def _kartu_masuk() -> None:
+    st.markdown(
+        '<h3 class="bk-auth-title">Masuk</h3>'
+        '<p class="bk-auth-sub">Gunakan akun yang sudah terdaftar.</p>',
+        unsafe_allow_html=True,
+    )
     with st.form("form_login"):
         username = st.text_input(
-            "Username *",
+            "Username",
             placeholder="Masukkan username",
             key="login_username",
         )
         password = st.text_input(
-            "Password *",
+            "Password",
             type="password",
             placeholder="Masukkan password",
             key="login_password",
         )
-        masuk = st.form_submit_button("Masuk", type="primary")
+        masuk = st.form_submit_button("Masuk", type="primary", width="stretch")
 
     if not masuk:
         return
@@ -99,40 +125,34 @@ def _form_login() -> None:
 
 
 def render() -> None:
-    _, tengah, _ = st.columns([1, 1.15, 1])
-    with tengah:
-        with st.container(key="bk_login_card"):
+    st.markdown('<div style="height:.6rem"></div>', unsafe_allow_html=True)
+    with st.container(key="bk_auth_card"):
+        brand, formulir = st.columns([1.02, 1], gap="small")
+        with brand:
+            _panel_brand()
+        with formulir:
             belum_ada_akun = not db.daftar_pengguna()
-            _kartu(
-                "Berkelana Travel",
-                "Sistem Administrasi Perjalanan"
-                if belum_ada_akun
-                else "Masuk atau daftar untuk mengelola data perjalanan",
-            )
-
             if belum_ada_akun:
                 st.markdown(
-                    """
-                    <div class="bk-note">
-                        <b>Belum ada akun.</b> Daftarkan akun petugas pertama untuk
-                        mulai memakai sistem. Password disimpan sebagai hash bcrypt,
-                        bukan teks biasa.
-                    </div>
-                    """,
+                    '<div class="bk-auth-hint"><span>🔐</span><span>'
+                    "<b>Belum ada akun.</b> Daftarkan akun petugas pertama untuk mulai "
+                    "memakai sistem.</span></div>",
                     unsafe_allow_html=True,
                 )
                 tab_daftar, tab_masuk = st.tabs(["📝 Daftar", "🔑 Masuk"])
                 with tab_daftar:
-                    _form_daftar()
+                    _kartu_daftar()
                 with tab_masuk:
-                    _form_login()
+                    _kartu_masuk()
             else:
                 tab_masuk, tab_daftar = st.tabs(["🔑 Masuk", "📝 Daftar"])
                 with tab_masuk:
-                    _form_login()
+                    _kartu_masuk()
                 with tab_daftar:
-                    _form_daftar()
-        st.markdown(
-            '<div class="bk-login-foot">Berkelana Travel · Sistem Administrasi Perjalanan</div>',
-            unsafe_allow_html=True,
-        )
+                    _kartu_daftar()
+            st.markdown(
+                '<div class="bk-auth-foot">'
+                "Password disimpan sebagai hash bcrypt, tidak pernah dalam bentuk teks biasa."
+                "</div>",
+                unsafe_allow_html=True,
+            )
