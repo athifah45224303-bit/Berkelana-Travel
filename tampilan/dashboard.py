@@ -27,21 +27,18 @@ def render() -> None:
         ui.metrik(
             "Pelanggan terdaftar",
             f"{ringkasan['total_pelanggan']:,}".replace(",", "."),
-            "👥",
             "Data pelanggan unik (nama + telepon)",
         )
     with kolom[1]:
         ui.metrik(
             "Rute aktif",
             f"{ringkasan['rute_aktif']:,}".replace(",", "."),
-            "🗺️",
             f"Dari total {ringkasan['total_rute']} rute terdaftar",
         )
     with kolom[2]:
         ui.metrik(
             "Pemesanan aktif",
             f"{ringkasan['total_pemesanan']:,}".replace(",", "."),
-            "🎫",
             f"{ringkasan['total_tiket']} tiket terjual",
         )
 
@@ -50,7 +47,6 @@ def render() -> None:
         ui.metrik(
             "Total pendapatan",
             f"Rp{ringkasan['total_pendapatan']:,}".replace(",", "."),
-            "💰",
             f"Rata-rata Rp{ringkasan['rata_rata_transaksi']:,} per transaksi".replace(
                 ",", "."
             ),
@@ -60,7 +56,6 @@ def render() -> None:
         ui.metrik(
             "7 hari ke depan",
             f"{ringkasan['pemesanan_7_hari']:,}".replace(",", "."),
-            "📅",
             f"{ringkasan['tiket_7_hari']} tiket · "
             f"{ringkasan['jadwal_mendatang']} jadwal aktif",
         )
@@ -68,7 +63,6 @@ def render() -> None:
         ui.metrik(
             "Kursi siap dijual",
             f"{ringkasan['kursi_aktif']:,}".replace(",", "."),
-            "💺",
             f"Dari total {ringkasan['total_kursi']} kursi",
         )
 
@@ -79,7 +73,6 @@ def render() -> None:
         jadwal = db.keberangkatan_mendatang(6)
         if not jadwal:
             ui.empty_state(
-                "🗓️",
                 "Belum ada jadwal mendatang",
                 "Buat pemesanan baru agar jadwal keberangkatan muncul di sini.",
             )
@@ -91,7 +84,7 @@ def render() -> None:
         ui.judul_bagian("Rute terpopuler", "Berdasarkan tiket terjual")
         populer = db.rute_terpopuler(5)
         if not populer:
-            ui.empty_state("📈", "Belum ada data rute", "Rute populer muncul setelah ada pemesanan.")
+            ui.empty_state("Belum ada data rute", "Rute populer muncul setelah ada pemesanan.")
         else:
             df_populer = pd.DataFrame(populer).set_index("rute")[["jumlah_tiket"]]
             df_populer.columns = ["Tiket terjual"]
@@ -108,7 +101,7 @@ def render() -> None:
     ui.judul_bagian("Pemesanan terbaru", "Diurutkan dari transaksi yang paling baru dibuat")
     terbaru = db.pemesanan_terbaru(7)
     if not terbaru:
-        ui.empty_state("🎟️", "Belum ada pemesanan", "Mulai dari menu Pemesanan Tiket.")
+        ui.empty_state("Belum ada pemesanan", "Mulai dari menu Pemesanan Tiket.")
     else:
         df = pd.DataFrame(terbaru)
         tampil = pd.DataFrame(

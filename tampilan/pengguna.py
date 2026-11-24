@@ -81,7 +81,6 @@ def _form_ganti_password(pengguna: dict) -> None:
 
 def render() -> None:
     ui.page_header(
-        "🔐",
         "Kelola Pengguna",
         "Tambah akun petugas, nonaktifkan akses, dan ganti password.",
     )
@@ -91,15 +90,15 @@ def render() -> None:
 
     kolom = st.columns(4)
     with kolom[0]:
-        ui.metrik("Total pengguna", f"{len(semua)}", "👤", "Seluruh akun terdaftar")
+        ui.metrik("Total pengguna", f"{len(semua)}", "Seluruh akun terdaftar")
     with kolom[1]:
-        ui.metrik("Aktif", f"{aktif}", "✅", "Akun yang bisa login")
+        ui.metrik("Aktif", f"{aktif}", "Akun yang bisa login")
     with kolom[2]:
-        ui.metrik("Nonaktif", f"{len(semua) - aktif}", "⛔", "Akun dinonaktifkan")
+        ui.metrik("Nonaktif", f"{len(semua) - aktif}", "Akun dinonaktifkan")
     with kolom[3]:
-        ui.metrik("Sedang login", auth.pengguna_sekarang(), "🔓", "Akun sesi ini")
+        ui.metrik("Sedang login", auth.pengguna_sekarang(), "Akun sesi ini")
 
-    tab_daftar, tab_tambah = st.tabs(["📋 Daftar Pengguna", "➕ Tambah Pengguna"])
+    tab_daftar, tab_tambah = st.tabs(["Daftar Pengguna", "Tambah Pengguna"])
 
     with tab_tambah:
         st.markdown(
@@ -117,7 +116,6 @@ def render() -> None:
     with tab_daftar:
         if not semua:
             ui.empty_state(
-                "👤",
                 "Belum ada pengguna",
                 "Tambahkan akun pertama untuk dapat masuk ke sistem.",
             )
@@ -166,7 +164,7 @@ def render() -> None:
                 )
             )
 
-            with st.expander("🗑️ Hapus pengguna"):
+            with st.expander("Hapus pengguna"):
                 if len(semua) <= 1:
                     st.info("Akun pengguna terakhir tidak dapat dihapus.")
                 elif adalah_saya:
@@ -194,10 +192,10 @@ def render() -> None:
                             st.rerun()
 
         with kanan:
-            st.markdown("##### 🔑 Ganti password")
+            st.markdown("##### Ganti password")
             _form_ganti_password(pilih)
 
-            st.markdown("##### ⛔ Status akun")
+            st.markdown("##### Status akun")
             if adalah_saya:
                 st.info("Akun ini sedang digunakan, statusnya tidak dapat diubah.")
             else:

@@ -60,18 +60,6 @@ HALAMAN = {
     "Kreator": kreator.render,
 }
 
-IKON_NAVIGASI = {
-    "Dashboard": "📊  Dashboard",
-    "Pelanggan": "👥  Pelanggan",
-    "Rute & Tarif": "🗺️  Rute & Tarif",
-    "Data Kursi": "💺  Data Kursi",
-    "Pemesanan Tiket": "🎫  Pemesanan Tiket",
-    "Riwayat Pemesanan": "🕘  Riwayat Pemesanan",
-    "Log Aktivitas": "🧾  Log Aktivitas",
-    "Kelola Pengguna": "🔐  Kelola Pengguna",
-    "Kreator": "🎓  Kreator",
-}
-
 with st.sidebar:
     ui.sidebar_brand()
 
@@ -83,7 +71,6 @@ with st.sidebar:
     halaman = st.radio(
         "Navigasi",
         options=list(HALAMAN),
-        format_func=lambda nama: IKON_NAVIGASI[nama],
         label_visibility="collapsed",
         key="navigasi_utama",
     )
@@ -100,11 +87,11 @@ with st.sidebar:
 
     st.divider()
     ui.sidebar_note(
-        f"📅 <b>{tanggal_indo(date.today())}</b><br><br>{ringkasan_sidebar}"
+        f"<b>{tanggal_indo(date.today())}</b><br><br>{ringkasan_sidebar}"
     )
     st.caption("Database lokal: berkelana.db")
-    st.caption(f"👤 Masuk sebagai **{auth.pengguna_sekarang()}**")
-    if st.button("🚪 Keluar", width="stretch", key="tombol_keluar"):
+    st.caption(f"Masuk sebagai **{auth.pengguna_sekarang()}**")
+    if st.button("Keluar", width="stretch", key="tombol_keluar"):
         db.catat_logout_pengguna(int(st.session_state[auth.KUNCI_ID]))
         auth.logout()
         st.rerun()

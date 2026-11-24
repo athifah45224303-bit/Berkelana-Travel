@@ -172,22 +172,30 @@ p, label, .stMarkdown {
     outline: 2px solid #ffd9de !important;
     outline-offset: 2px;
 }
-.bk-page-head {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.9rem;
-    margin: 0 0 1.15rem 0;
+/* Navigasi sidebar: daftar teks polos dengan penanda aktif */
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"] > div > div:first-child {
+    display: none !important;
 }
-.bk-page-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: #e8f1fb;
-    border: 1px solid #bcd7f0;
-    display: grid;
-    place-items: center;
-    font-size: 1.35rem;
-    flex: 0 0 auto;
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"] {
+    padding: 0.34rem 0.55rem !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+    transition: background 0.15s ease;
+}
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:hover {
+    background: rgba(255, 255, 255, 0.07) !important;
+}
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked) {
+    background: rgba(255, 255, 255, 0.13) !important;
+    box-shadow: inset 3px 0 0 #8fc1ec !important;
+}
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"] p {
+    font-weight: 600 !important;
+}
+.bk-page-head {
+    border-left: 4px solid var(--bk-brand);
+    padding-left: 1.05rem;
+    margin: 0 0 1.15rem 0;
 }
 .bk-page-head h1 {
     font-size: 1.85rem;
@@ -275,15 +283,22 @@ p, label, .stMarkdown {
     gap: 0.45rem;
     margin-bottom: 0.55rem;
 }
-.bk-metric-icon {
-    font-size: 1rem;
-}
 .bk-metric-label {
     font-size: 0.71rem;
     font-weight: 800;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--bk-muted);
+}
+.bk-metric-label::before {
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--bk-accent);
+    margin-right: 0.5rem;
+    vertical-align: 0.22em;
 }
 .bk-metric-value {
     line-height: 1.1;
@@ -320,6 +335,7 @@ p, label, .stMarkdown {
     color: #dceafa;
 }
 .bk-metric.accent .bk-metric-value { color: #ffffff; }
+.bk-metric.accent .bk-metric-label::before { background: rgba(255, 255, 255, 0.82); }
 .bk-metric.accent::after { background: rgba(255,255,255,0.09); }
 .bk-section-title {
     display: flex;
@@ -448,6 +464,12 @@ div[data-testid="stExpander"] details {
     font-size: 0.82rem;
 }
 .bk-trip-meta b { color: #1e293b; }
+.bk-trip-meta em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--bk-muted);
+    margin-right: 0.12rem;
+}
 .bk-seat-shell {
     background: linear-gradient(180deg, #ffffff, #f8fafc);
     border: 1px solid var(--bk-line);
@@ -468,6 +490,24 @@ div[data-testid="stExpander"] details {
     border-bottom: 1px dashed #cbd5e1;
     padding-bottom: 0.6rem;
     margin-bottom: 0.75rem;
+}
+.bk-bus-mark {
+    width: 34px;
+    height: 9px;
+    border-radius: 4px 4px 2px 2px;
+    background: #cbd5e1;
+    position: relative;
+    flex: none;
+}
+.bk-bus-mark::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 2px;
+    height: 3px;
+    border-radius: 2px;
+    background: #e2e8f0;
 }
 .bk-seat-grid {
     display: grid;
@@ -591,7 +631,14 @@ div[data-testid="stExpander"] details {
     background: rgba(255,255,255,0.55);
     color: var(--bk-muted);
 }
-.bk-empty .big { font-size: 2rem; margin-bottom: 0.45rem; }
+.bk-empty .mark {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 0.75rem auto;
+    border-radius: 13px;
+    border: 2px dashed #cbd5e1;
+    background: rgba(248, 250, 252, 0.9);
+}
 .bk-seat-usage {
     display: inline-flex;
     gap: 0.22rem;
@@ -926,7 +973,7 @@ def sidebar_brand() -> None:
         )
     else:
         isi = (
-            '<div class="bk-brand-icon">🧭</div>'
+            '<div class="bk-brand-icon">BT</div>'
             "<div>"
             '<div class="bk-brand-name">Berkelana Travel</div>'
             '<div class="bk-brand-sub">Sistem Administrasi</div>'
@@ -939,15 +986,12 @@ def sidebar_note(teks_html: str) -> None:
     st.markdown(f'<div class="bk-sidebar-note">{teks_html}</div>', unsafe_allow_html=True)
 
 
-def page_header(ikon: str, judul: str, deskripsi: str) -> None:
+def page_header(judul: str, deskripsi: str) -> None:
     st.markdown(
         f"""
         <div class="bk-page-head">
-            <div class="bk-page-icon">{esc(ikon)}</div>
-            <div>
-                <h1>{esc(judul)}</h1>
-                <p>{esc(deskripsi)}</p>
-            </div>
+            <h1>{esc(judul)}</h1>
+            <p>{esc(deskripsi)}</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -963,7 +1007,7 @@ def hero(judul: str, deskripsi: str, tanggal: str) -> None:
                 <h1>{esc(judul)}</h1>
                 <p>{esc(deskripsi)}</p>
             </div>
-            <div class="bk-hero-date">📅 {esc(tanggal)}</div>
+            <div class="bk-hero-date">{esc(tanggal)}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -973,7 +1017,6 @@ def hero(judul: str, deskripsi: str, tanggal: str) -> None:
 def metrik(
     label: str,
     nilai: str,
-    ikon: str = "•",
     sub: str = "",
     aksen: bool = False,
 ) -> None:
@@ -982,7 +1025,6 @@ def metrik(
         f"""
         <div class="{kelas}">
             <div class="bk-metric-top">
-                <span class="bk-metric-icon">{esc(ikon)}</span>
                 <span class="bk-metric-label">{esc(label)}</span>
             </div>
             <div class="bk-metric-value">{esc(nilai)}</div>
@@ -1056,7 +1098,7 @@ def denah_kursi(
     st.markdown(
         f"""
         <div class="bk-seat-shell">
-            <div class="bk-bus-front">🚌 {esc(label_depan)}</div>
+            <div class="bk-bus-front"><span class="bk-bus-mark"></span>{esc(label_depan)}</div>
             <div class="bk-seat-grid">{''.join(kartu)}</div>
             <div class="bk-legend">
                 <span><i style="background:#bbf7d0"></i>Tersedia</span>
@@ -1076,19 +1118,19 @@ def kartu_perjalanan(data: Mapping[str, Any], boleh_batal: bool = False) -> None
         f"""
         <div class="bk-trip">
             <div class="bk-trip-top">
-                <span class="bk-trip-code">🎫 {esc(data.get('kode_pemesanan', '-'))}</span>
+                <span class="bk-trip-code">{esc(data.get('kode_pemesanan', '-'))}</span>
                 {badge('AKTIF', 'green')}
             </div>
             <div class="bk-trip-route">
                 {esc(data.get('kota_asal', '-'))}<span class="arrow">→</span>{esc(data.get('kota_tujuan', '-'))}
             </div>
             <div class="bk-trip-meta">
-                <span>🏷️ <b>{esc(data.get('kode_jadwal') or data.get('kode_rute', '-'))}</b></span>
-                <span>🗓️ <b>{esc(tanggal_indo(data.get('tanggal_keberangkatan', date.today())))}</b></span>
-                <span>🕘 <b>{esc(jam_indo(data.get('jam_keberangkatan', '00:00')))}</b></span>
-                <span>💺 <b>{esc(data.get('nomor_kursi', '-'))}</b></span>
-                <span>🎟️ <b>{esc(data.get('jumlah_pesan_tiket', 0))} tiket</b></span>
-                <span>💰 <b>{esc(rupiah(data.get('total_harga')))}</b></span>
+                <span><em>Jadwal:</em> <b>{esc(data.get('kode_jadwal') or data.get('kode_rute', '-'))}</b></span>
+                <span><em>Tanggal:</em> <b>{esc(tanggal_indo(data.get('tanggal_keberangkatan', date.today())))}</b></span>
+                <span><em>Jam:</em> <b>{esc(jam_indo(data.get('jam_keberangkatan', '00:00')))}</b></span>
+                <span><em>Kursi:</em> <b>{esc(data.get('nomor_kursi', '-'))}</b></span>
+                <span><em>Tiket:</em> <b>{esc(data.get('jumlah_pesan_tiket', 0))}</b></span>
+                <span><em>Total:</em> <b>{esc(rupiah(data.get('total_harga')))}</b></span>
             </div>
         </div>
         """,
@@ -1114,9 +1156,9 @@ def kartu_jadwal(data: Mapping[str, Any], kapasitas: int) -> None:
                 {esc(data.get('kota_asal', '-'))}<span class="arrow">→</span>{esc(data.get('kota_tujuan', '-'))}
             </div>
             <div class="bk-trip-meta" style="font-size:.77rem">
-                <span>🕘 {esc(jam_indo(jam))}</span>
-                <span>👥 {esc(tiket)}/{esc(kapasitas)} kursi</span>
-                <span>🎟️ {esc(data.get('jumlah_pemesanan', 0))} pemesanan</span>
+                <span><em>Jam:</em> {esc(jam_indo(jam))}</span>
+                <span><em>Kursi:</em> {esc(tiket)}/{esc(kapasitas)}</span>
+                <span><em>Pemesanan:</em> {esc(data.get('jumlah_pemesanan', 0))}</span>
             </div>
             <div style="height:6px;background:#e8eef0;border-radius:99px;margin-top:.55rem;overflow:hidden">
                 <div style="height:100%;width:{persen}%;background:{'#f59e0b' if persen >= 75 else '#1e68af'};border-radius:99px"></div>
@@ -1133,7 +1175,7 @@ def kartu_pelanggan(data: Mapping[str, Any]) -> None:
         <div class="bk-profile">
             <div>{badge(str(data.get('kode_pelanggan', '-')), 'teal')}</div>
             <div class="bk-profile-name">{esc(data.get('nama_pelanggan', '-'))}</div>
-            <div class="bk-profile-sub">📱 {esc(data.get('nomor_telepon', '-'))} &nbsp;·&nbsp; Terdaftar {esc(waktu_lengkap(data.get('dibuat_pada')))}</div>
+            <div class="bk-profile-sub">{esc(data.get('nomor_telepon', '-'))} &nbsp;·&nbsp; Terdaftar {esc(waktu_lengkap(data.get('dibuat_pada')))}</div>
             <div class="bk-profile-stats">
                 <div class="bk-profile-stat"><span>Pemesanan</span><b>{esc(data.get('jumlah_pemesanan', 0))}</b></div>
                 <div class="bk-profile-stat"><span>Tiket</span><b>{esc(data.get('total_tiket', 0))}</b></div>
@@ -1164,11 +1206,11 @@ def kotak_harga(
     )
 
 
-def empty_state(ikon: str, judul: str, pesan: str) -> None:
+def empty_state(judul: str, pesan: str) -> None:
     st.markdown(
         f"""
         <div class="bk-empty">
-            <div class="big">{esc(ikon)}</div>
+            <div class="mark"></div>
             <div style="font-weight:800;color:#334155;margin-bottom:.25rem">{esc(judul)}</div>
             <div style="font-size:.84rem">{esc(pesan)}</div>
         </div>
@@ -1182,7 +1224,7 @@ def nota(data: Mapping[str, Any], key_prefix: str = "nota") -> None:
     teks = buat_teks_nota(dict(data))
     with st.container(border=True):
         st.markdown(
-            '<div class="bk-receipt-head">🧾 Nota Pemesanan</div>',
+            '<div class="bk-receipt-head">Nota Pemesanan</div>',
             unsafe_allow_html=True,
         )
         st.caption(
@@ -1191,7 +1233,7 @@ def nota(data: Mapping[str, Any], key_prefix: str = "nota") -> None:
         )
         st.code(teks, language=None)
         st.download_button(
-            "⬇️ Unduh nota (.txt)",
+            "Unduh nota (.txt)",
             data=teks.encode("utf-8"),
             file_name=nama_file_nota(dict(data)),
             mime="text/plain",

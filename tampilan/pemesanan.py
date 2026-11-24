@@ -43,7 +43,6 @@ def _tampilkan_nota_terakhir() -> None:
 
 def render() -> None:
     ui.page_header(
-        "🎫",
         "Pemesanan Tiket",
         "Pilih pelanggan, rute, jadwal, dan kursi. Sistem menghitung total secara otomatis.",
     )
@@ -53,7 +52,7 @@ def render() -> None:
     # Pelanggan
     # ------------------------------------------------------------------
     ui.judul_bagian("1 · Pelanggan", "Pilih pelanggan terdaftar atau tambahkan baru")
-    with st.expander("➕ Pelanggan baru belum terdaftar?"):
+    with st.expander("Pelanggan baru belum terdaftar?"):
         with st.form("form_pelanggan_cepat", clear_on_submit=True):
             kiri, kanan = st.columns(2)
             nama_baru = kiri.text_input(
@@ -104,7 +103,7 @@ def render() -> None:
     if id_pelanggan:
         p = peta_pelanggan[id_pelanggan]
         st.caption(
-            f"📱 {p['nomor_telepon']} · {p['jumlah_pemesanan']} pemesanan sebelumnya · "
+            f"{p['nomor_telepon']} · {p['jumlah_pemesanan']} pemesanan sebelumnya · "
             f"total belanja {rupiah(p['total_belanja'])}"
         )
     else:
@@ -342,7 +341,7 @@ def render() -> None:
             alasan.append("kursi belum dipilih")
 
         tombol = st.button(
-            "✅ Konfirmasi & simpan pemesanan",
+            "Konfirmasi & simpan pemesanan",
             type="primary",
             disabled=bool(alasan),
             width="stretch",

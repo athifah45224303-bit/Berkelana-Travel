@@ -192,7 +192,6 @@ def _teks_identitas() -> str:
 def render() -> None:
     st.markdown(CSS_KREATOR, unsafe_allow_html=True)
     ui.page_header(
-        "🎓",
         "Kreator",
         "Tim penyusun Sistem Administrasi Travel Berkelana — Kelompok 2.",
     )
@@ -238,7 +237,7 @@ def render() -> None:
     st.markdown(grid_html, unsafe_allow_html=True)
 
     st.download_button(
-        "⬇️ Unduh identitas tim (.txt)",
+        "Unduh identitas tim (.txt)",
         data=_teks_identitas().encode("utf-8-sig"),
         file_name="identitas-kreator-berkelana.txt",
         mime="text/plain",

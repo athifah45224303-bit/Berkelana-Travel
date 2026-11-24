@@ -29,7 +29,6 @@ def _tabel_pelanggan(data: list[dict]) -> pd.DataFrame:
 
 def render() -> None:
     ui.page_header(
-        "👥",
         "Data Pelanggan",
         "Kelola identitas pelanggan. Sistem menolak nama + nomor telepon yang sama.",
     )
@@ -41,15 +40,15 @@ def render() -> None:
 
     kolom = st.columns(4)
     with kolom[0]:
-        ui.metrik("Pelanggan", f"{len(semua)}", "👤", "Seluruh data pelanggan")
+        ui.metrik("Pelanggan", f"{len(semua)}", "Seluruh data pelanggan")
     with kolom[1]:
-        ui.metrik("Sudah memesan", f"{aktif}", "✅", "Pelanggan dengan transaksi")
+        ui.metrik("Sudah memesan", f"{aktif}", "Pelanggan dengan transaksi")
     with kolom[2]:
-        ui.metrik("Total pemesanan", f"{total_pemesanan}", "🎫", "Seluruh transaksi aktif")
+        ui.metrik("Total pemesanan", f"{total_pemesanan}", "Seluruh transaksi aktif")
     with kolom[3]:
-        ui.metrik("Total belanja", rupiah(total_belanja), "💳", "Akumulasi nilai transaksi")
+        ui.metrik("Total belanja", rupiah(total_belanja), "Akumulasi nilai transaksi")
 
-    tab_daftar, tab_tambah = st.tabs(["📋 Daftar Pelanggan", "➕ Tambah Pelanggan"])
+    tab_daftar, tab_tambah = st.tabs(["Daftar Pelanggan", "Tambah Pelanggan"])
 
     with tab_tambah:
         st.markdown(
@@ -90,14 +89,13 @@ def render() -> None:
 
     with tab_daftar:
         cari = st.text_input(
-            "🔍 Cari pelanggan",
+            "Cari pelanggan",
             placeholder="Cari kode, nama, atau nomor telepon...",
             key="cari_pelanggan",
         )
         data = db.daftar_pelanggan(cari)
         if not data:
             ui.empty_state(
-                "🔎",
                 "Pelanggan tidak ditemukan",
                 "Ubah kata kunci pencarian atau tambahkan pelanggan baru.",
             )
@@ -135,7 +133,7 @@ def render() -> None:
             )
 
         with kanan:
-            st.markdown("##### ✏️ Ubah data pelanggan")
+            st.markdown("##### Ubah data pelanggan")
             with st.form(f"form_ubah_pelanggan_{pilih['id_pelanggan']}"):
                 nama_baru = st.text_input(
                     "Nama pelanggan *",
@@ -164,7 +162,7 @@ def render() -> None:
                     )
                     st.rerun()
 
-            with st.expander("🗑️ Hapus pelanggan"):
+            with st.expander("Hapus pelanggan"):
                 if pilih["jumlah_pemesanan"] > 0:
                     st.info(
                         f"Pelanggan ini memiliki {pilih['jumlah_pemesanan']} pemesanan sehingga "

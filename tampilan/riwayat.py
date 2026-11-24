@@ -21,7 +21,6 @@ from utils import (
 
 def render() -> None:
     ui.page_header(
-        "🕘",
         "Riwayat Pemesanan",
         "Cari transaksi, buka detail dan nota, lalu batalkan bila diperlukan.",
     )
@@ -32,7 +31,7 @@ def render() -> None:
     with st.container(border=True):
         baris1 = st.columns([1.7, 1, 1])
         cari = baris1[0].text_input(
-            "🔍 Cari transaksi",
+            "Cari transaksi",
             placeholder="Kode pemesanan, pelanggan, telepon, rute, atau kursi...",
             key="cari_riwayat",
         )
@@ -83,17 +82,16 @@ def render() -> None:
 
     kolom = st.columns(4)
     with kolom[0]:
-        ui.metrik("Transaksi", f"{len(data)}", "🎫", "Sesuai filter aktif")
+        ui.metrik("Transaksi", f"{len(data)}", "Sesuai filter aktif")
     with kolom[1]:
-        ui.metrik("Tiket", f"{total_tiket}", "🎟️", "Total tiket pada hasil filter")
+        ui.metrik("Tiket", f"{total_tiket}", "Total tiket pada hasil filter")
     with kolom[2]:
-        ui.metrik("Nilai transaksi", rupiah(total_pendapatan), "💰", "Akumulasi total harga")
+        ui.metrik("Nilai transaksi", rupiah(total_pendapatan), "Akumulasi total harga")
     with kolom[3]:
-        ui.metrik("Masih mendatang", f"{mendatang}", "📅", "Jadwal yang belum terlewati")
+        ui.metrik("Masih mendatang", f"{mendatang}", "Jadwal yang belum terlewati")
 
     if not data:
         ui.empty_state(
-            "🔎",
             "Tidak ada pemesanan",
             "Ubah filter pencarian atau buat pemesanan baru terlebih dahulu.",
         )
@@ -122,7 +120,7 @@ def render() -> None:
         height=min(430, 42 + len(tabel) * 35),
     )
     st.download_button(
-        "⬇️ Unduh hasil filter (.csv)",
+        "Unduh hasil filter (.csv)",
         data=tabel.to_csv(index=False).encode("utf-8-sig"),
         file_name="riwayat-pemesanan-berkelana.csv",
         mime="text/csv",
@@ -150,13 +148,13 @@ def render() -> None:
 
     kiri, kanan = st.columns([1, 1])
     with kiri:
-        st.markdown("##### 👤 Data pelanggan")
+        st.markdown("##### Data pelanggan")
         st.markdown(
             f"""
             <div class="bk-profile" style="margin-bottom:.8rem">
                 <div>{ui.badge(detail['kode_pelanggan'], 'teal')}</div>
                 <div class="bk-profile-name">{ui.esc(detail['nama_pelanggan'])}</div>
-                <div class="bk-profile-sub">📱 {ui.esc(detail['nomor_telepon'])}</div>
+                <div class="bk-profile-sub">{ui.esc(detail['nomor_telepon'])}</div>
                 <div class="bk-profile-stats">
                     <div class="bk-profile-stat"><span>Transaksi</span><b>{ui.esc(detail['kode_pemesanan'])}</b></div>
                     <div class="bk-profile-stat"><span>Dibuat</span><b style="font-size:.76rem">{ui.esc(waktu_lengkap(detail['dibuat_pada']))}</b></div>
@@ -174,7 +172,7 @@ def render() -> None:
             st.info("Jadwal keberangkatan transaksi ini sudah terlewati.")
 
     with kanan:
-        st.markdown("##### 💳 Rincian biaya")
+        st.markdown("##### Rincian biaya")
         st.markdown(
             f"""
             <div class="bk-price-box">
@@ -197,10 +195,10 @@ def render() -> None:
         else:
             st.caption("Harga transaksi sama dengan tarif rute saat ini.")
 
-    with st.expander("🧾 Lihat & unduh nota"):
+    with st.expander("Lihat & unduh nota"):
         ui.nota(detail, f"nota_riwayat_{detail['kode_pemesanan']}")
 
-    with st.expander("⚠️ Batalkan pemesanan"):
+    with st.expander("Batalkan pemesanan"):
         st.markdown(
             "Pembatalan menghapus pemesanan beserta detail kursinya. Kursi akan "
             "tersedia kembali untuk jadwal tersebut. Pengembalian dana dilakukan "

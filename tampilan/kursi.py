@@ -23,7 +23,6 @@ def _tabel_kursi(data: list[dict]) -> pd.DataFrame:
 
 def render() -> None:
     ui.page_header(
-        "💺",
         "Data Kursi",
         "Kelola nomor kursi dan statusnya. Kursi nonaktif tidak dapat dipilih pada pemesanan.",
     )
@@ -35,23 +34,22 @@ def render() -> None:
 
     kolom = st.columns(4)
     with kolom[0]:
-        ui.metrik("Total kursi", f"{len(semua)}", "💺", "Seluruh kursi terdaftar")
+        ui.metrik("Total kursi", f"{len(semua)}", "Seluruh kursi terdaftar")
     with kolom[1]:
-        ui.metrik("Kursi aktif", f"{len(aktif)}", "✅", "Dapat dipilih pada pemesanan")
+        ui.metrik("Kursi aktif", f"{len(aktif)}", "Dapat dipilih pada pemesanan")
     with kolom[2]:
-        ui.metrik("Kursi nonaktif", f"{len(nonaktif)}", "⏸️", "Tidak dijual untuk sementara")
+        ui.metrik("Kursi nonaktif", f"{len(nonaktif)}", "Tidak dijual untuk sementara")
     with kolom[3]:
         ui.metrik(
             "Terpakai mendatang",
             f"{pemakaian_mendatang}",
-            "🎫",
             "Detail kursi pada jadwal yang akan datang",
         )
 
     ui.judul_bagian("Denah kursi", "Status fisik kursi saat ini")
     ui.denah_kursi(semua, label_depan="Denah kursi Berkelana")
 
-    tab_daftar, tab_tambah = st.tabs(["📋 Daftar Kursi", "➕ Tambah Kursi"])
+    tab_daftar, tab_tambah = st.tabs(["Daftar Kursi", "Tambah Kursi"])
 
     with tab_tambah:
         st.markdown(
@@ -88,7 +86,7 @@ def render() -> None:
 
     with tab_daftar:
         cari = st.text_input(
-            "🔍 Cari nomor kursi",
+            "Cari nomor kursi",
             placeholder="Contoh: K1",
             key="cari_kursi",
         )
@@ -97,7 +95,7 @@ def render() -> None:
         ] if cari.strip() else semua
 
         if not data:
-            ui.empty_state("🔎", "Kursi tidak ditemukan", "Ubah kata kunci pencarian.")
+            ui.empty_state("Kursi tidak ditemukan", "Ubah kata kunci pencarian.")
             return
 
         st.dataframe(
@@ -129,10 +127,10 @@ def render() -> None:
                         <span class="bk-trip-code">KURSI {ui.esc(pilih['nomor_kursi'])}</span>
                         {ui.badge_status_aktif(pilih['status_aktif'])}
                     </div>
-                    <div class="bk-trip-route" style="font-size:1.5rem">💺 {ui.esc(pilih['nomor_kursi'])}</div>
+                    <div class="bk-trip-route" style="font-size:1.5rem">{ui.esc(pilih['nomor_kursi'])}</div>
                     <div class="bk-trip-meta">
-                        <span>📦 Total pemakaian <b>{pilih['total_pemakaian']}</b></span>
-                        <span>📅 Jadwal mendatang <b>{pilih['pemakaian_mendatang']}</b></span>
+                        <span><em>Total pemakaian:</em> <b>{pilih['total_pemakaian']}</b></span>
+                        <span><em>Jadwal mendatang:</em> <b>{pilih['pemakaian_mendatang']}</b></span>
                     </div>
                     <div class="bk-note" style="margin-top:.8rem;margin-bottom:0">
                         {'Kursi ini sudah pernah dipakai. Nomor kursi dikunci agar nota lama tetap konsisten.'
@@ -149,7 +147,7 @@ def render() -> None:
             )
 
         with kanan:
-            st.markdown("##### ✏️ Ubah data kursi")
+            st.markdown("##### Ubah data kursi")
             with st.form(f"form_ubah_kursi_{pilih['id_kursi']}"):
                 nomor = st.text_input(
                     "Nomor kursi *",
@@ -179,7 +177,7 @@ def render() -> None:
                     )
                     st.rerun()
 
-            with st.expander("🗑️ Hapus kursi"):
+            with st.expander("Hapus kursi"):
                 if pilih["total_pemakaian"] > 0:
                     st.info(
                         f"Kursi ini sudah dipakai pada {pilih['total_pemakaian']} detail "

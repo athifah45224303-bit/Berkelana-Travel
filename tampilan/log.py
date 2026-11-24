@@ -12,7 +12,6 @@ from utils import waktu_lengkap
 
 def render() -> None:
     ui.page_header(
-        "🧾",
         "Log Aktivitas",
         "Jejak audit perubahan data dan transaksi yang tersimpan otomatis oleh sistem.",
     )
@@ -20,33 +19,30 @@ def render() -> None:
     semua = db.daftar_log(batas=1000)
     kolom = st.columns(4)
     with kolom[0]:
-        ui.metrik("Total catatan", f"{len(semua)}", "🗂️", "Maksimal 1.000 catatan terbaru")
+        ui.metrik("Total catatan", f"{len(semua)}", "Maksimal 1.000 catatan terbaru")
     with kolom[1]:
         ui.metrik(
             "Transaksi",
             f"{sum(1 for x in semua if x['entitas'] == 'PEMESANAN')}",
-            "🎫",
             "Tambah & batal pemesanan",
         )
     with kolom[2]:
         ui.metrik(
             "Pelanggan",
             f"{sum(1 for x in semua if x['entitas'] == 'PELANGGAN')}",
-            "👤",
             "Perubahan data pelanggan",
         )
     with kolom[3]:
         ui.metrik(
             "Rute & kursi",
             f"{sum(1 for x in semua if x['entitas'] in ('RUTE', 'KURSI'))}",
-            "🗺️",
             "Perubahan master data",
         )
 
     with st.container(border=True):
         kiri, tengah, kanan = st.columns([1.6, 1, 1])
         cari = kiri.text_input(
-            "🔍 Cari log",
+            "Cari log",
             placeholder="Cari referensi, aksi, atau keterangan...",
             key="cari_log",
         )
@@ -78,7 +74,6 @@ def render() -> None:
 
     if not data:
         ui.empty_state(
-            "🗂️",
             "Log tidak ditemukan",
             "Ubah filter atau lakukan aktivitas terlebih dahulu.",
         )
@@ -105,7 +100,7 @@ def render() -> None:
         },
     )
     st.download_button(
-        "⬇️ Unduh log (.csv)",
+        "Unduh log (.csv)",
         data=tabel.to_csv(index=False).encode("utf-8-sig"),
         file_name="log-aktivitas-berkelana.csv",
         mime="text/csv",

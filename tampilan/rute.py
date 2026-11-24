@@ -46,7 +46,6 @@ def _tabel_jadwal(data: list[dict]) -> pd.DataFrame:
 
 def render() -> None:
     ui.page_header(
-        "🗺️",
         "Rute & Tarif",
         "Atur perjalanan yang dijual, tarif, status rute, serta tiga kode jadwal "
         "keberangkatan tetap pada setiap rute.",
@@ -63,23 +62,21 @@ def render() -> None:
         ui.metrik(
             "Total rute",
             f"{len(semua)}",
-            "🗺️",
             f"{len(aktif)} rute aktif · {len(semua_jadwal)} kode jadwal",
         )
     with kolom[1]:
-        ui.metrik("Tarif rata-rata", rupiah(rata), "🎟️", "Dihitung dari rute aktif")
+        ui.metrik("Tarif rata-rata", rupiah(rata), "Dihitung dari rute aktif")
     with kolom[2]:
         ui.metrik(
             "Tiket terjual",
             f"{sum(r['total_tiket_terjual'] for r in semua)}",
-            "🎫",
             "Seluruh rute",
         )
     with kolom[3]:
-        ui.metrik("Pendapatan rute", rupiah(pendapatan), "💰", "Akumulasi transaksi aktif")
+        ui.metrik("Pendapatan rute", rupiah(pendapatan), "Akumulasi transaksi aktif")
 
     tab_daftar, tab_jadwal, tab_tambah = st.tabs(
-        ["📋 Daftar Rute", "🕘 Jadwal & Kode", "➕ Tambah Rute"]
+        ["Daftar Rute", "Jadwal & Kode", "Tambah Rute"]
     )
 
     with tab_tambah:
@@ -150,7 +147,6 @@ def render() -> None:
         data_jadwal = db.daftar_jadwal(id_rute=filter_jadwal)
         if not data_jadwal:
             ui.empty_state(
-                "🕘",
                 "Belum ada jadwal",
                 "Tambahkan rute baru untuk membuat tiga jadwal keberangkatan otomatis.",
             )
@@ -225,7 +221,7 @@ def render() -> None:
     with tab_daftar:
         kiri, kanan = st.columns([2, 1])
         cari = kiri.text_input(
-            "🔍 Cari rute",
+            "Cari rute",
             placeholder="Cari kode rute, kode jadwal, kota asal, atau kota tujuan...",
             key="cari_rute",
         )
@@ -234,7 +230,6 @@ def render() -> None:
         data = db.daftar_rute(cari, hanya_aktif)
         if not data:
             ui.empty_state(
-                "🔎",
                 "Rute tidak ditemukan",
                 "Ubah filter pencarian atau tambahkan rute baru.",
             )
@@ -281,12 +276,12 @@ def render() -> None:
                         {ui.esc(pilih['kota_asal'])}<span class="arrow">→</span>{ui.esc(pilih['kota_tujuan'])}
                     </div>
                     <div class="bk-trip-meta">
-                        <span>🎟️ Tarif <b>{ui.esc(rupiah(pilih['harga_tiket']))}</b></span>
-                        <span>📦 <b>{pilih['jumlah_pemesanan']}</b> pemesanan</span>
-                        <span>🎫 <b>{pilih['total_tiket_terjual']}</b> tiket</span>
+                        <span><em>Tarif:</em> <b>{ui.esc(rupiah(pilih['harga_tiket']))}</b></span>
+                        <span><em>Pemesanan:</em> <b>{pilih['jumlah_pemesanan']}</b></span>
+                        <span><em>Tiket:</em> <b>{pilih['total_tiket_terjual']}</b></span>
                     </div>
                     <div class="bk-trip-meta" style="flex-wrap:wrap">
-                        <span>🕘 Kode jadwal:</span>{chip_jadwal}
+                        <span><em>Kode jadwal:</em></span>{chip_jadwal}
                     </div>
                     <div class="bk-profile-stats" style="margin-top:.85rem">
                         <div class="bk-profile-stat"><span>Pendapatan</span><b>{ui.esc(rupiah(pilih['total_pendapatan']))}</b></div>
@@ -304,7 +299,7 @@ def render() -> None:
                 )
 
         with kanan:
-            st.markdown("##### ✏️ Ubah rute dan tarif")
+            st.markdown("##### Ubah rute dan tarif")
             with st.form(f"form_ubah_rute_{pilih['id_rute']}"):
                 asal = st.text_input(
                     "Kota asal *",
@@ -343,7 +338,7 @@ def render() -> None:
                     )
                     st.rerun()
 
-            with st.expander("🗑️ Hapus rute"):
+            with st.expander("Hapus rute"):
                 if pilih["jumlah_pemesanan"] > 0:
                     st.info(
                         f"Rute ini dipakai pada {pilih['jumlah_pemesanan']} pemesanan sehingga "
