@@ -148,6 +148,30 @@ p, label, .stMarkdown {
     line-height: 1.55;
 }
 .bk-sidebar-note b { color: #cfe3f7; }
+/* Tombol Keluar: warna cerah agar mudah ditemukan di sidebar */
+.st-key-tombol_keluar button {
+    background-image: linear-gradient(135deg, #ff8659 0%, #ef2f56 100%) !important;
+    background-color: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.30) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border-radius: 11px !important;
+    box-shadow: 0 8px 20px rgba(239, 47, 86, 0.40) !important;
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+.st-key-tombol_keluar button:hover {
+    background-image: linear-gradient(135deg, #ff9a70 0%, #ff3f68 100%) !important;
+    box-shadow: 0 11px 26px rgba(239, 47, 86, 0.52) !important;
+    transform: translateY(-1px);
+}
+.st-key-tombol_keluar button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 12px rgba(239, 47, 86, 0.34) !important;
+}
+.st-key-tombol_keluar button:focus-visible {
+    outline: 2px solid #ffd9de !important;
+    outline-offset: 2px;
+}
 .bk-page-head {
     display: flex;
     align-items: flex-start;
@@ -648,6 +672,19 @@ div[data-testid="stCode"] pre {
     padding: 0.35rem;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
 }
+.bk-auth-monogram {
+    width: 78px;
+    height: 78px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: #ffffff;
+    color: var(--bk-brand-dark);
+    font-weight: 800;
+    font-size: 1.55rem;
+    letter-spacing: 0.05em;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+}
 .bk-auth-brand .name {
     font-size: 1.32rem;
     font-weight: 800;
@@ -680,9 +717,24 @@ div[data-testid="stCode"] pre {
     color: #ffffff;
 }
 .bk-auth-brand .tick {
-    color: #7fd4a8;
-    font-weight: 800;
     flex: none;
+    position: relative;
+    width: 1.05rem;
+    height: 1.05rem;
+    margin-top: 0.12rem;
+    border-radius: 50%;
+    background: rgba(127, 212, 168, 0.18);
+}
+.bk-auth-brand .tick::after {
+    content: "";
+    position: absolute;
+    left: 0.33rem;
+    top: 0.19rem;
+    width: 0.24rem;
+    height: 0.48rem;
+    border: solid #7fd4a8;
+    border-width: 0 2px 2px 0;
+    transform: rotate(43deg);
 }
 .bk-auth-brand .foot {
     margin-top: auto;
@@ -775,6 +827,20 @@ div[data-testid="stCode"] pre {
 }
 .bk-auth-hint b {
     color: var(--bk-brand-dark);
+}
+.bk-auth-hint-icon {
+    flex: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.04rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--bk-brand);
+    color: #ffffff;
+    font-size: 0.74rem;
+    font-weight: 800;
+    font-style: italic;
 }
 .bk-auth-foot {
     margin-top: 1.1rem;

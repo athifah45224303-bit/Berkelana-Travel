@@ -25,10 +25,10 @@ def _panel_brand() -> None:
     gambar = (
         f'<img src="{logo}" alt="Logo Berkelana Travel">'
         if logo
-        else '<div class="bk-brand-icon">🧭</div>'
+        else '<div class="bk-auth-monogram">BT</div>'
     )
     butir = "".join(
-        f'<li><span class="tick">✓</span><span><b>{judul}</b> — {ketika}</span></li>'
+        f'<li><span class="tick"></span><span><b>{judul}</b> — {ketika}</span></li>'
         for judul, ketika in FITUR
     )
     st.markdown(
@@ -134,18 +134,19 @@ def render() -> None:
             belum_ada_akun = not db.daftar_pengguna()
             if belum_ada_akun:
                 st.markdown(
-                    '<div class="bk-auth-hint"><span>🔐</span><span>'
-                    "<b>Belum ada akun.</b> Daftarkan akun petugas pertama untuk mulai "
-                    "memakai sistem.</span></div>",
+                    '<div class="bk-auth-hint">'
+                    '<span class="bk-auth-hint-icon">i</span>'
+                    "<span><b>Belum ada akun.</b> Daftarkan akun petugas pertama "
+                    "untuk mulai memakai sistem.</span></div>",
                     unsafe_allow_html=True,
                 )
-                tab_daftar, tab_masuk = st.tabs(["📝 Daftar", "🔑 Masuk"])
+                tab_daftar, tab_masuk = st.tabs(["Daftar", "Masuk"])
                 with tab_daftar:
                     _kartu_daftar()
                 with tab_masuk:
                     _kartu_masuk()
             else:
-                tab_masuk, tab_daftar = st.tabs(["🔑 Masuk", "📝 Daftar"])
+                tab_masuk, tab_daftar = st.tabs(["Masuk", "Daftar"])
                 with tab_masuk:
                     _kartu_masuk()
                 with tab_daftar:
